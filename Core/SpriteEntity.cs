@@ -15,6 +15,16 @@ namespace MGJamSummer2018.Core
             origin = new Vector2(spriteSheet.Width / 2, spriteSheet.Height / 2);
         }
 
+        public override void Update(GameTime gTime)
+        {
+            base.Update(gTime);
+            spriteSheet.Update(gTime);
+        }
+
+        public override void Draw(GameTime gTime)
+        {
+            spriteSheet.Draw(Position, origin, color);
+        }
         public void SetAnchor(Anchor anchor)
         {
             switch (anchor)
@@ -38,6 +48,10 @@ namespace MGJamSummer2018.Core
         public int Width { get => spriteSheet.Width; }
         public int Height { get => spriteSheet.Height; }
         public bool Mirror { get => spriteSheet.Mirrored; set => spriteSheet.Mirrored = value; }
+
+        public void PlayAnimation(string name) { spriteSheet.PlayAnimation(name); }
+        public void ToggleAnimation() => spriteSheet.ToggleAnimation();
+        public bool LoopAnimation { get => spriteSheet.LoopAnimation; set => spriteSheet.LoopAnimation = value; }
 
         public override Rectangle CollisionBox
         {

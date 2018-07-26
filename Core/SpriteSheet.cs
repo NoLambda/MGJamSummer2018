@@ -9,14 +9,22 @@ namespace MGJamSummer2018.Core
 {
     class SpriteSheet
     {
+        // Animation variables
+        protected float frameTime, time;
+        protected bool looping, isAnimated = false;
+        protected AnimMetaData currentAnimation;
+
+        // Normal Sprite sheet variables
         protected bool[] isTransparent;
         protected Texture2D sheet;
         protected int frameWidth, frameHeight, spacingHeight;
         protected int rows, columns, currIndex;
         protected bool mirrored;
         Dictionary<string, AnimMetaData> animData;
-        public SpriteSheet(string sheetPath, int sheetIndex)
+        public SpriteSheet(string sheetPath, int sheetIndex, bool animated = false, float _frameTime = 0.1f)
         {
+            isAnimated = animated;
+            frameTime = _frameTime;
             currIndex = SheetIndex;
             sheet = AssetManager.Instance.GetSprite(sheetPath);
             //Color[] sheetColors = new Color[sheet.Width * sheet.Height];
@@ -51,6 +59,36 @@ namespace MGJamSummer2018.Core
             }
         }
 
+        public void PlayAnimation(string name)
+        {
+            if(!isAnimated) { throw new Exception("Tried to call Playanimation on a non animated spritesheet"); }
+            if(!animData.ContainsKey(name)) { throw new ArgumentException(name + " was not found within the loaded animation MetaData!"); }
+            currentAnimation = animData[name];
+            SheetIndex = currentAnimation.FrameStart;
+            time = 0.0f;
+        }
+
+        public void Update(GameTime gTime)
+        {
+            if(!isAnimated) { return; }
+            else
+            {
+                time += (float)gTime.ElapsedGameTime.TotalSeconds;
+                while (time > frameTime)
+                {
+                    time -= frameTime;
+                    SheetIndex++;
+                    if (SheetIndex > (currentAnimation.FrameEnd))
+                    {
+                        SheetIndex = currentAnimation.FrameStart;
+                        if (!looping)
+                            isAnimated = false;
+                    }
+                    
+                }
+            }
+        }
+
         public void Draw(Vector2 pos, Vector2 origin, Color color)
         {
             int currRow = currIndex / columns;
@@ -77,6 +115,9 @@ namespace MGJamSummer2018.Core
         public int Height { get => frameHeight; }
         public int SheetIndex { get => currIndex; set { if (value < columns * rows && value >= 0) { currIndex = value; } } }
 
+        // Animation properties
+        public void ToggleAnimation() => isAnimated = !isAnimated;
+        public bool LoopAnimation { get => looping; set => looping = value; }
     }
 
 

@@ -10,7 +10,7 @@ namespace MGJamSummer2018.Core
     {
         protected Entity parent;
         protected EntityList children;
-        protected Vector2 pos, vel;
+        protected Vector2 localPos, vel;
         protected string name;
         protected uint layer;
 
@@ -25,7 +25,7 @@ namespace MGJamSummer2018.Core
         public virtual void Update(GameTime gTime)
         {
             children.Update(gTime);
-            pos = vel * (float)gTime.ElapsedGameTime.TotalSeconds;
+            localPos = vel * (float)gTime.ElapsedGameTime.TotalSeconds;
         }
         public virtual void Draw(GameTime gTime) { children.Draw(gTime); }
 
@@ -33,7 +33,7 @@ namespace MGJamSummer2018.Core
         public EntityList Children { get => children; }
         
         public virtual Vector2 Position { get => parent == null ? LocalPosition : parent.Position + LocalPosition; }
-        public virtual Vector2 LocalPosition { get => pos; set => pos = value; }
+        public virtual Vector2 LocalPosition { get => localPos; set => localPos = value; }
         public virtual Vector2 Velocity { get => vel; set => vel = value; }
 
         public string Name { get => name; }
