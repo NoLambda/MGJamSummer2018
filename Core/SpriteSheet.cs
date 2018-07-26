@@ -15,8 +15,9 @@ namespace MGJamSummer2018.Core
         protected int rows, columns, currIndex;
         protected bool mirrored;
         Dictionary<string, AnimMetaData> animData;
-        public SpriteSheet(string sheetPath)
+        public SpriteSheet(string sheetPath, int sheetIndex)
         {
+            currIndex = SheetIndex;
             sheet = AssetManager.Instance.GetSprite(sheetPath);
             //Color[] sheetColors = new Color[sheet.Width * sheet.Height];
             //sheet.GetData(sheetColors);
