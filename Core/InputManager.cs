@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 
-namespace MGJamSummer2018.Engine
+namespace MGJamSummer2018.Core
 {
     class InputManager
     {
