@@ -13,6 +13,7 @@ namespace MGJamSummer2018.Core
         protected Vector2 localPos, vel;
         protected string name;
         protected uint layer;
+        protected bool visible;
 
         public Entity(string _name, Entity _parent = null, uint _layer = 0)
         {
@@ -27,7 +28,12 @@ namespace MGJamSummer2018.Core
             children.Update(gTime);
             localPos = vel * (float)gTime.ElapsedGameTime.TotalSeconds;
         }
-        public virtual void Draw(GameTime gTime) { children.Draw(gTime); }
+        public virtual void Draw(GameTime gTime)
+        {
+            if(!visible) { return; }
+            children.Draw(gTime);
+        }
+        public bool IsVisible { get => visible; set => visible = value; }
 
         public Entity Parent { get => (parent ?? this); set => parent = value; }
         public EntityList Children { get => children; }
