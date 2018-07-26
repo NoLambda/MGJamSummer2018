@@ -1,51 +1,42 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+using MGJamSummer2018.Core;
+using MGJamSummer2018.Scenes;
+using System.Collections.Generic;
 
 namespace MGJamSummer2018
 {
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
+            GraphicsManager.Instance.Init(this);
+            GraphicsManager.Instance.SetWindowTitle("NoLambda Team | MGJam Summer 2018");
+            GraphicsManager.Instance.SetResolution(new Vector2(640, 480), false);
+            GraphicsManager.Instance.SetVirtualResolution(new Vector2(320, 180));
+            GraphicsManager.Instance.SetMouseVisible(true);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            Start();
         }
 
-        protected override void Initialize()
+        private void Start()
         {
-            // TODO: Add your initialization logic here
+            ScenesManager.Instance.Initialize(Content);
 
-            base.Initialize();
-        }
+            ScenesManager.Instance.Populate(new List<Scene>() {new MainMenu("Menu"),
+                                                               new GameScene("Game") });
 
-        protected override void LoadContent()
-        {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            ScenesManager.Instance.SetStartingScene(ScenesManager.Instance.Container.Find(x => x.Name == "Menu"));
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
-            // TODO: Add your update logic here
-
+            ScenesManager.Instance.Update(gameTime);
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
-
+            ScenesManager.Instance.Draw(GraphicsManager.Instance.SpriteBatch);
             base.Draw(gameTime);
         }
     }
