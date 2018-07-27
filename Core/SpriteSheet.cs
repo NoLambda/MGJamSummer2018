@@ -25,7 +25,7 @@ namespace MGJamSummer2018.Core
         {
             isAnimated = animated;
             frameTime = _frameTime;
-            currIndex = SheetIndex;
+            currIndex = sheetIndex;
             sheet = AssetManager.Instance.GetSprite(sheetPath);
             //Color[] sheetColors = new Color[sheet.Width * sheet.Height];
             //sheet.GetData(sheetColors);
@@ -33,12 +33,18 @@ namespace MGJamSummer2018.Core
             //    isTransparent[i] = sheetColors[i].A != 0;
             List<string> metaData = new List<string>();
             animData = new Dictionary<string, AnimMetaData>();
-            string metaDataPath = sheetPath.Replace(".png", ".txt");
-            try
-            {
+            string metaDataPath = sheetPath + ".txt";
+            metaDataPath = metaDataPath.Insert(0, "Content/");
+            
+            
                 StreamReader sr = new StreamReader(metaDataPath);
-                while (sr != null)
-                    metaData.Add(sr.ReadLine());
+            string mLine = sr.ReadLine();
+                while (mLine != null)
+            {
+                metaData.Add(mLine);
+                mLine = sr.ReadLine();
+            }
+                    
                 string[] line = metaData[0].Split(' ');
                 frameWidth = int.Parse(line[0]); frameHeight = int.Parse(line[1]); spacingHeight = int.Parse(line[2]);
                 int spacingCount = metaData.Count - 1;
@@ -47,16 +53,16 @@ namespace MGJamSummer2018.Core
                 int currFrameStart = 0;
                 for(int i = 1; i < metaData.Count; i++)
                 {
-                    line = metaData[0].Split(' ');
-                    animData.Add(line[0], new AnimMetaData(currFrameStart, currFrameStart + int.Parse(line[1])));
-                    currFrameStart += int.Parse(line[1]);
+                    line = metaData[i].Split(' ');
+                    animData.Add(line[0], new AnimMetaData(currFrameStart, int.Parse(line[1])));
+                    currFrameStart = int.Parse(line[1]);
                 }
-            }
-            catch
-            {
-                throw new IOException("Error parsing metadata for sprite with path" + sheetPath + 
-                    "/n check if .txt is named the same as the sprite and if the file conventions are correct!");
-            }
+            
+            //catch
+            //{
+            //    throw new IOException("Error parsing metadata for sprite with path" + sheetPath + 
+            //        "/n check if .txt is named the same as the sprite and if the file conventions are correct!");
+            //}
         }
 
         public void PlayAnimation(string name)
@@ -77,10 +83,10 @@ namespace MGJamSummer2018.Core
                 while (time > frameTime)
                 {
                     time -= frameTime;
-                    SheetIndex++;
-                    if (SheetIndex > (currentAnimation.FrameEnd))
+                    currIndex++;
+                    if (currIndex > (currentAnimation.FrameEnd))
                     {
-                        SheetIndex = currentAnimation.FrameStart;
+                        currIndex = currentAnimation.FrameStart;
                         if (!looping)
                             isAnimated = false;
                     }
@@ -91,8 +97,9 @@ namespace MGJamSummer2018.Core
 
         public void Draw(Vector2 pos, Vector2 origin, Color color)
         {
-            int currRow = currIndex / columns;
-            int currCol = currIndex % rows;
+            //int currRow = currIndex / columns;
+            int currRow = currIndex / (columns % rows);
+            int currCol = currIndex % columns;
             Rectangle currSpriteBox = new Rectangle(currCol * frameWidth, currRow * frameHeight, frameWidth, frameHeight);
             SpriteEffects spriteEffects = SpriteEffects.None;
             if (mirrored)
