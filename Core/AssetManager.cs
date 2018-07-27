@@ -16,7 +16,7 @@ namespace MGJamSummer2018.Core
         { }
 
         // General
-        public void SetContentManager(ContentManager _content) { content = _content; }
+        public void Init(ContentManager _content) { content = _content; }
         public ContentManager GetContentManager { get => content; }
 
         // Graphics

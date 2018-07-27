@@ -20,7 +20,7 @@ namespace MGJamSummer2018
 
         private void Start()
         {
-            ScenesManager.Instance.Initialize(Content);
+            AssetManager.Instance.Init(Content);
 
             ScenesManager.Instance.Populate(new List<Scene>() {new MainMenu("Menu"),
                                                                new GameScene("Game") });

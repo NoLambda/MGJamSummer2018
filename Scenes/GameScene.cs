@@ -17,14 +17,18 @@ namespace MGJamSummer2018.Scenes
             world = new XmlManager<Grid>().Load("Maps/World_01.xml", world.GetType());
         }
 
-        public override void LoadContent(ContentManager content)
+        public override void LoadContent()
         {
+<<<<<<< HEAD
             world.LoadContent(content);
         }
 
         public override void Update(GameTime time)
         {
 
+=======
+            texture = AssetManager.Instance.GetSprite("cube");
+>>>>>>> 9bed17d7b65016b6b4faf02cc1d1e27726ace1aa
         }
 
         public override void Draw(SpriteBatch batch)
