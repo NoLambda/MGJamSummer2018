@@ -25,11 +25,7 @@
 /processorParam:TextureFormat=Color
 /build:cube.png
 
-<<<<<<< HEAD
-#begin Cells/Debug_default.png
-=======
 #begin link.png
->>>>>>> 9bed17d7b65016b6b4faf02cc1d1e27726ace1aa
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -39,7 +35,18 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-<<<<<<< HEAD
+/build:link.png
+
+#begin Cells/Debug_default.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
 /build:Cells/Debug_default.png
 
 #begin Cells/Debug_dirt.png
@@ -77,7 +84,4 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Cells/Debug_sand.png
-=======
-/build:link.png
->>>>>>> 9bed17d7b65016b6b4faf02cc1d1e27726ace1aa
 

@@ -27,6 +27,7 @@ namespace MGJamSummer2018.Core
         public void OnSceneChanged(object source, SceneEventArgs args)
         {
             args.Scene.Initialize();
+            args.Scene.LoadContent(AssetManager.Instance.GetContentManager);
             Console.WriteLine($"[{args.Scene.Name}]: Initialized.\n" +
                               $"[{args.Scene.Name}]: Loaded.\n" +
                               $"[{args.Scene.Name}]: Performing draw update loop.");

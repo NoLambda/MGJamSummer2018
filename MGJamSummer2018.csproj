@@ -19,7 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Maps\World_01.xml"></None>
+    <None Update="Maps\World_01.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Content\link.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
