@@ -5,6 +5,10 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath />
+  </PropertyGroup>
+
   <ItemGroup>
     <MonoGameContentReference Include="**\*.mgcb" />
   </ItemGroup>
@@ -12,6 +16,12 @@
   <ItemGroup>
     <PackageReference Include="MonoGame.Content.Builder" Version="3.7.0.4" />
     <PackageReference Include="MonoGame.Framework.DesktopGL.Core" Version="3.7.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Maps\World_01.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
