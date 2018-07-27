@@ -32,7 +32,7 @@ namespace MGJamSummer2018.Core
         public virtual void Update(GameTime gTime)
         {
             children.Update(gTime);
-            localPos = vel * (float)gTime.ElapsedGameTime.TotalSeconds;
+            localPos += vel * (float)gTime.ElapsedGameTime.TotalSeconds;
         }
         public virtual void Draw(GameTime gTime)
         {
