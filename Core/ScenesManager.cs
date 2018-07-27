@@ -10,7 +10,6 @@ namespace MGJamSummer2018.Core
     {
         public List<Scene> Container { get; }
         public Scene CurrentScene { get; private set; }
-        public ContentManager ContentManager { get; private set; }
 
         public event EventHandler<SceneEventArgs> SceneChanged;
 
@@ -20,11 +19,6 @@ namespace MGJamSummer2018.Core
         public ScenesManager()
         {
             Container = new List<Scene>();
-        }
-
-        public void Initialize(ContentManager contentManager)
-        {
-            ContentManager = contentManager;
         }
 
         public void Update(GameTime gameTime) => CurrentScene.Update(gameTime);
