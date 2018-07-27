@@ -16,7 +16,7 @@ namespace MGJamSummer2018.Core
 
         public virtual void Initialize() { }
 
-        public virtual void LoadContent(ContentManager content) { }
+        public virtual void LoadContent() { }
 
         public virtual void UnloadContent() { }
 
@@ -27,7 +27,6 @@ namespace MGJamSummer2018.Core
         public void OnSceneChanged(object source, SceneEventArgs args)
         {
             args.Scene.Initialize();
-            args.Scene.LoadContent(ScenesManager.Instance.ContentManager);
             Console.WriteLine($"[{args.Scene.Name}]: Initialized.\n" +
                               $"[{args.Scene.Name}]: Loaded.\n" +
                               $"[{args.Scene.Name}]: Performing draw update loop.");

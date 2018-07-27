@@ -84,7 +84,7 @@ namespace MGJamSummer2018.Core
                 {
                     time -= frameTime;
                     currIndex++;
-                    if (currIndex > (currentAnimation.FrameEnd))
+                    if ((currIndex - currentAnimation.FrameStart) > currentAnimation.AmountOfFrames)
                     {
                         currIndex = currentAnimation.FrameStart;
                         if (!looping)
@@ -131,11 +131,11 @@ namespace MGJamSummer2018.Core
 
     struct AnimMetaData
     {
-        public int FrameStart, FrameEnd;
+        public int FrameStart, AmountOfFrames;
         public AnimMetaData(int Fstart, int Fend)
         {
             FrameStart = Fstart;
-            FrameEnd = Fend;
+            AmountOfFrames = Fend;
         }
     }
 }

@@ -12,9 +12,9 @@ namespace MGJamSummer2018.Scenes
 
         public MainMenu(string name) : base(name) { }
 
-        public override void LoadContent(ContentManager content)
+        public override void LoadContent()
         {
-            texture = content.Load<Texture2D>("cube");
+            texture = AssetManager.Instance.GetSprite("cube");
         }
 
         public override void Draw(SpriteBatch batch)
