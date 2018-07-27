@@ -19,7 +19,13 @@ namespace MGJamSummer2018.Core
         {
             children = new EntityList(this);
             name = _name;
-            parent = _parent;
+            if (_parent == null)
+            {
+                parent = EntityRoot.Instance;
+                EntityRoot.Instance.children.Add(this);
+            }
+            else
+                parent = _parent;
         }
 
         public virtual void Reset() { children.Reset();}
@@ -33,6 +39,7 @@ namespace MGJamSummer2018.Core
             if(!visible) { return; }
             children.Draw(gTime);
         }
+
         public bool IsVisible { get => visible; set => visible = value; }
 
         public Entity Parent { get => (parent ?? this); set => parent = value; }
@@ -45,5 +52,28 @@ namespace MGJamSummer2018.Core
         public string Name { get => name; }
         public uint DrawingLayer { get => layer; set => layer = value; }
         public virtual Rectangle CollisionBox { get => new Rectangle((int)Position.X, (int)Position.Y, 0, 0); }
+    }
+
+    public class EntityRoot : Entity
+    {
+        public static EntityRoot Instance { get { return instance ?? (instance = new EntityRoot()); } }
+        private static EntityRoot instance;
+
+        public EntityRoot() : base("ROOT", null, 0)  { }
+
+        public Entity RootSearch(string _name)
+        {
+            foreach (Entity e in children.Entities)
+            {
+                if (e.Name == _name)
+                    return e;
+                else
+                {
+                    if (e.Children != null)
+                        e.Children.Search(_name);
+                }
+            }
+            return null;
+        }
     }
 }

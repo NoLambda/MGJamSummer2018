@@ -20,7 +20,8 @@ namespace MGJamSummer2018.Core
             entities.Sort((x, y) => x.DrawingLayer.CompareTo(y.DrawingLayer));
         }
         public void Remove(Entity e) { entities.Remove(e); e.Parent = null; }
-        public Entity Find(string _name)
+
+        public Entity Search(string _name)
         {
             foreach(Entity e in entities)
             {
@@ -29,7 +30,7 @@ namespace MGJamSummer2018.Core
                 else
                 {
                     if (e.Children != null)
-                        e.Children.Find(_name);
+                        e.Children.Search(_name);
                 }
             }
             return null;

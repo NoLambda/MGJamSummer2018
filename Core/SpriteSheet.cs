@@ -35,34 +35,34 @@ namespace MGJamSummer2018.Core
             animData = new Dictionary<string, AnimMetaData>();
             string metaDataPath = sheetPath + ".txt";
             metaDataPath = metaDataPath.Insert(0, "Content/");
-            
-            
-                StreamReader sr = new StreamReader(metaDataPath);
-            string mLine = sr.ReadLine();
-                while (mLine != null)
+            try
             {
-                metaData.Add(mLine);
-                mLine = sr.ReadLine();
-            }
-                    
+                StreamReader sr = new StreamReader(metaDataPath);
+                string mLine = sr.ReadLine();
+                while (mLine != null)
+                {
+                    metaData.Add(mLine);
+                    mLine = sr.ReadLine();
+                }
+
                 string[] line = metaData[0].Split(' ');
                 frameWidth = int.Parse(line[0]); frameHeight = int.Parse(line[1]); spacingHeight = int.Parse(line[2]);
                 int spacingCount = metaData.Count - 1;
                 rows = (sheet.Height - spacingCount * spacingHeight) / frameHeight;
                 columns = sheet.Width / frameWidth;
                 int currFrameStart = 0;
-                for(int i = 1; i < metaData.Count; i++)
+                for (int i = 1; i < metaData.Count; i++)
                 {
                     line = metaData[i].Split(' ');
                     animData.Add(line[0], new AnimMetaData(currFrameStart, int.Parse(line[1])));
                     currFrameStart = int.Parse(line[1]);
                 }
-            
-            //catch
-            //{
-            //    throw new IOException("Error parsing metadata for sprite with path" + sheetPath + 
-            //        "/n check if .txt is named the same as the sprite and if the file conventions are correct!");
-            //}
+            }
+            catch
+            {
+                throw new IOException("Error parsing metadata for sprite with path" + sheetPath +
+                    "/n check if .txt is named the same as the sprite and if the file conventions are correct!");
+            }
         }
 
         public void PlayAnimation(string name)
