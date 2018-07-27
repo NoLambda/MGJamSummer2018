@@ -21,20 +21,7 @@ namespace MGJamSummer2018.Core
             Container = new List<Scene>();
         }
 
-<<<<<<< HEAD:Core/SceneManagement/ScenesManager.cs
-        public void Initialize(ContentManager contentManager)
-        {
-            ContentManager = contentManager;
-        }
-
-        public void Update(GameTime gameTime)
-        {
-            
-            CurrentScene.Update(gameTime);
-        }
-=======
         public void Update(GameTime gameTime) => CurrentScene.Update(gameTime);
->>>>>>> 9bed17d7b65016b6b4faf02cc1d1e27726ace1aa:Core/ScenesManager.cs
 
         public void Draw(SpriteBatch spriteBatch)
         {
