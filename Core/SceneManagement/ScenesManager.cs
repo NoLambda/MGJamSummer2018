@@ -30,19 +30,19 @@ namespace MGJamSummer2018.Core
                 GraphicsManager.Instance.GraphicsDeviceManager.GraphicsDevice.SetRenderTarget(GraphicsManager.Instance.RenderVirtualResolution);
                 GraphicsManager.Instance.GraphicsDeviceManager.GraphicsDevice.DepthStencilState = new DepthStencilState() { DepthBufferEnable = true };
                 GraphicsManager.Instance.GraphicsDeviceManager.GraphicsDevice.Clear(Color.CornflowerBlue);
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null /*CameraManager.Instance.Transform*/);
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null , CameraManager.Instance.Transform);
                 CurrentScene.Draw(spriteBatch);
                 spriteBatch.End();
                 GraphicsManager.Instance.GraphicsDeviceManager.GraphicsDevice.SetRenderTarget(null);
                 GraphicsManager.Instance.GraphicsDeviceManager.GraphicsDevice.Clear(Color.Black);
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Matrix.CreateScale(GraphicsManager.Instance.GraphicsDeviceManager.GraphicsDevice.Viewport.Width / GraphicsManager.Instance.VirtualResolution.X, GraphicsManager.Instance.GraphicsDeviceManager.GraphicsDevice.Viewport.Width / GraphicsManager.Instance.VirtualResolution.X, 1f) * Matrix.CreateTranslation(GraphicsManager.Instance.GraphicsDeviceManager.GraphicsDevice.Viewport.Width / 2, GraphicsManager.Instance.GraphicsDeviceManager.GraphicsDevice.Viewport.Height / 2, 0));
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Matrix.CreateScale(GraphicsManager.Instance.GraphicsDeviceManager.GraphicsDevice.Viewport.Width / GraphicsManager.Instance.VirtualResolution.X, GraphicsManager.Instance.GraphicsDeviceManager.GraphicsDevice.Viewport.Width / GraphicsManager.Instance.VirtualResolution.X, 1f) * Matrix.CreateTranslation(GraphicsManager.Instance.GraphicsDeviceManager.GraphicsDevice.Viewport.Width / 2, GraphicsManager.Instance.GraphicsDeviceManager.GraphicsDevice.Viewport.Height / 2, 0));
                 spriteBatch.Draw(GraphicsManager.Instance.RenderVirtualResolution, new Vector2(0, 0), null, Color.White, 0f, new Vector2(GraphicsManager.Instance.RenderVirtualResolution.Width / 2, GraphicsManager.Instance.RenderVirtualResolution.Height / 2), 1f, SpriteEffects.None, 0f);
                 spriteBatch.End();
             }
             else
             {
                 GraphicsManager.Instance.GraphicsDeviceManager.GraphicsDevice.Clear(Color.CornflowerBlue);
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone);
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone);
                 CurrentScene.Draw(spriteBatch);
                 spriteBatch.End();
             }

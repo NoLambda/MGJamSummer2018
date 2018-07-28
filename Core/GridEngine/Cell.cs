@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MGJamSummer2018.Entities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MGJamSummer2018.Core
@@ -15,6 +16,23 @@ namespace MGJamSummer2018.Core
             Texture = texture;
             Position = position;
             Collideable = collideable;
+            BoundingBox = new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
+        }
+
+        public void Update(Player player)
+        {
+            if (Collideable)
+            {
+
+                if (player.Bounds.Intersects(BoundingBox))
+                {
+                    player.isGrounded = true;
+                }
+            }
+            else
+            {
+                player.isGrounded = false;
+            }
         }
     }
 }

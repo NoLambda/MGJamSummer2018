@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
+using MGJamSummer2018.Entities;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -28,6 +29,14 @@ namespace MGJamSummer2018.Core
             for (int i = 0; i < Layers.Count; i++)
             {
                 Layers[i].Draw(spriteBatch);
+            }
+        }
+
+        public void Update(Player player)
+        {
+            for (int i = 0; i < Layers.Count; i++)
+            {
+                Layers[i].Update(player);
             }
         }
     }

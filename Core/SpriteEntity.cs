@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 namespace MGJamSummer2018.Core
 {
-    class SpriteEntity : Entity
+    public class SpriteEntity : Entity
     {
         protected SpriteSheet spriteSheet;
         protected Vector2 origin;

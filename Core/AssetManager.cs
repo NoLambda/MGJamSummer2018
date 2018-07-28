@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace MGJamSummer2018.Core
 {
-    class AssetManager
+    public class AssetManager
     {
         public static AssetManager Instance { get { return instance ?? (instance = new AssetManager()); } }
         private static AssetManager instance;

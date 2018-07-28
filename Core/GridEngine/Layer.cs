@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using MGJamSummer2018.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,7 +13,7 @@ namespace MGJamSummer2018.Core
         [XmlElement("Name")] public string Name { get; set; }
         [XmlElement("Row")] public List<string> Row { get; set; }
         [XmlElement("Import")] public List<string> Import { get; set; }
-        [XmlElement("Collide")] public List<string> Collideable { get; set; }
+        [XmlElement("Collideable")] public List<string> Collideable { get; set; }
 
         [XmlIgnore] public List<Texture2D> Textures { get; set; }
         [XmlIgnore] public List<Cell> Cells { get; set; }
@@ -51,12 +52,20 @@ namespace MGJamSummer2018.Core
                         exclude[y] = exclude[y].Replace("[", String.Empty);
                         int id = int.Parse(exclude[y].Substring(0, 1));
 
-                        if (Collideable.Count >= 1 && Collideable[id].Contains($"[{id}]"))
+                        if (Collideable.Count > 1 && Collideable[id].Contains($"[{id}]"))
                             Cells.Add(new Cell(Textures[id], offset, true));
                         else
                             Cells.Add(new Cell(Textures[id], offset, false));
                     }
                 }
+            }
+        }
+
+        public void Update(Player player)
+        {
+            for (int i = 0; i < Cells.Count; i++)
+            {
+                Cells[i].Update(player);
             }
         }
 

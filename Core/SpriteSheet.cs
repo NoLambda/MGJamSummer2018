@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MGJamSummer2018.Core
 {
-    class SpriteSheet
+    public class SpriteSheet
     {
         // Animation variables
         protected float frameTime, time;
@@ -129,7 +129,7 @@ namespace MGJamSummer2018.Core
 
 
 
-    struct AnimMetaData
+    public struct AnimMetaData
     {
         public int FrameStart, AmountOfFrames;
         public AnimMetaData(int Fstart, int Fend)
