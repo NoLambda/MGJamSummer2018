@@ -33,7 +33,7 @@ namespace MGJamSummer2018.Scenes
             player.Update(time);
         }
 
-        public override void Draw(SpriteBatch batch)
+        public override void Draw(GameTime time, SpriteBatch batch)
         {
             world.Draw(batch);
             player.Draw(batch);

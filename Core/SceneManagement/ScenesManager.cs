@@ -23,7 +23,7 @@ namespace MGJamSummer2018.Core
 
         public void Update(GameTime gameTime) => CurrentScene.Update(gameTime);
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, GameTime time)
         {
             if (GraphicsManager.Instance.AllowVirtualResolution)
             {
@@ -31,7 +31,7 @@ namespace MGJamSummer2018.Core
                 GraphicsManager.Instance.GraphicsDeviceManager.GraphicsDevice.DepthStencilState = new DepthStencilState() { DepthBufferEnable = true };
                 GraphicsManager.Instance.GraphicsDeviceManager.GraphicsDevice.Clear(Color.CornflowerBlue);
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null , CameraManager.Instance.Transform);
-                CurrentScene.Draw(spriteBatch);
+                CurrentScene.Draw(time,spriteBatch);
                 spriteBatch.End();
                 GraphicsManager.Instance.GraphicsDeviceManager.GraphicsDevice.SetRenderTarget(null);
                 GraphicsManager.Instance.GraphicsDeviceManager.GraphicsDevice.Clear(Color.Black);
@@ -43,7 +43,7 @@ namespace MGJamSummer2018.Core
             {
                 GraphicsManager.Instance.GraphicsDeviceManager.GraphicsDevice.Clear(Color.CornflowerBlue);
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone);
-                CurrentScene.Draw(spriteBatch);
+                CurrentScene.Draw(time, spriteBatch);
                 spriteBatch.End();
             }
         }

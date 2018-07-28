@@ -2,6 +2,7 @@
 using MGJamSummer2018.Core;
 using MGJamSummer2018.Scenes;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace MGJamSummer2018
 {
@@ -37,7 +38,7 @@ namespace MGJamSummer2018
 
         protected override void Draw(GameTime gameTime)
         {
-            ScenesManager.Instance.Draw(gameTime, GraphicsManager.Instance.SpriteBatch);
+            ScenesManager.Instance.Draw( GraphicsManager.Instance.SpriteBatch, gameTime);
             base.Draw(gameTime);
         }
     }

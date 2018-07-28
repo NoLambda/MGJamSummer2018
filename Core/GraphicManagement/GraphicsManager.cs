@@ -22,7 +22,7 @@ namespace MGJamSummer2018.Core
         public static GraphicsManager Instance { get { return instance ?? (instance = new GraphicsManager()); } }
         private static GraphicsManager instance;
 
-        public void Init(Game game)
+        public void Init(Game1 game)
         {
             Game = game;
             GraphicsDeviceManager = new GraphicsDeviceManager(Game);
