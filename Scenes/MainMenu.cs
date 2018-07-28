@@ -14,7 +14,7 @@ namespace MGJamSummer2018.Scenes
 
         }
 
-        public override void Draw(SpriteBatch batch)
+        public override void Draw(GameTime time, SpriteBatch batch)
         {
 
         }

@@ -9,9 +9,9 @@ namespace MGJamSummer2018.Core
         protected Vector2 origin;
         protected Color color = Color.White;
         protected int currIndex;
-        public SpriteEntity(string sheetPath, string _name, int sheetIndex = 0, Entity _parent = null, uint _layer = 0) : base(_name, _parent, _layer)
+        public SpriteEntity(string sheetPath, string _name, Entity _parent = null, uint _layer = 0) : base(_name, _parent, _layer)
         {
-            spriteSheet = new SpriteSheet(sheetPath, sheetIndex);
+            spriteSheet = new SpriteSheet(sheetPath);
             origin = new Vector2(spriteSheet.Width / 2, spriteSheet.Height / 2);
         }
 
