@@ -30,13 +30,14 @@ namespace MGJamSummer2018
 
         protected override void Update(GameTime gameTime)
         {
+            InputManager.Instance.Update();
             ScenesManager.Instance.Update(gameTime);
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            ScenesManager.Instance.Draw(GraphicsManager.Instance.SpriteBatch);
+            ScenesManager.Instance.Draw(gameTime, GraphicsManager.Instance.SpriteBatch);
             base.Draw(gameTime);
         }
     }

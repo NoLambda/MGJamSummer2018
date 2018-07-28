@@ -13,17 +13,14 @@ namespace MGJamSummer2018.Core
         protected Vector2 localPos, vel;
         protected string name;
         protected uint layer;
-        protected bool visible;
+        protected bool visible = true;
 
         public Entity(string _name, Entity _parent = null, uint _layer = 0)
         {
             children = new EntityList(this);
             name = _name;
             if (_parent == null)
-            {
-                parent = EntityRoot.Instance;
                 EntityRoot.Instance.children.Add(this);
-            }
             else
                 parent = _parent;
         }
@@ -42,7 +39,7 @@ namespace MGJamSummer2018.Core
 
         public bool IsVisible { get => visible; set => visible = value; }
 
-        public Entity Parent { get => (parent ?? this); set => parent = value; }
+       public Entity Parent { get => parent; set => parent = value; }
         public EntityList Children { get => children; }
         
         public virtual Vector2 Position { get => parent == null ? LocalPosition : parent.Position + LocalPosition; }
@@ -54,12 +51,13 @@ namespace MGJamSummer2018.Core
         public virtual Rectangle CollisionBox { get => new Rectangle((int)Position.X, (int)Position.Y, 0, 0); }
     }
 
-    public class EntityRoot : Entity
+    public class EntityRoot
     {
         public static EntityRoot Instance { get { return instance ?? (instance = new EntityRoot()); } }
         private static EntityRoot instance;
+        public EntityList children = new EntityList();
 
-        public EntityRoot() : base("ROOT", null, 0)  { }
+        public EntityRoot() { }
 
         public Entity RootSearch(string _name)
         {

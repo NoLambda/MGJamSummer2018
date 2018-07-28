@@ -19,6 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Content\MainCharacter.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Maps\World_01.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
