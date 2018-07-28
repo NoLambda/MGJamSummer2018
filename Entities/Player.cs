@@ -6,56 +6,51 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MGJamSummer2018.Entities
 {
-    public class Player
+    public class Player : SpriteEntity
     {
-        public Texture2D Texture { get; set; }
-        public Rectangle Bounds { get; set; }
-        public Vector2 Position { get; set; }
-        public Vector2 Velocity { get; set; }
-
         public bool isGrounded { get; set; }
 
-        private float pixelsPerSeconds;
-        private float gravity;
+        private float movementSpeed;
+        private const float gravity = 92;
 
-        public Player()
+        public Player() : base("MainCharacter", "PLAYER", null, 0)
         {
-            pixelsPerSeconds = 64;
-            gravity = 92;
+            ToggleAnimation();
+            PlayAnimation("SNEAKING");
+            LoopAnimation = true;
+            movementSpeed = 64;
+            localPos = new Vector2(20, 5);
         }
 
-        public void LoadContent(ContentManager content)
-        {
-            Texture = content.Load<Texture2D>("cube");
-        }
-
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             CameraManager.Instance.Follow(this, .45f);
-
-            Velocity = Vector2.Zero;
-
-            Bounds = new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
-
-            if (isGrounded)
-            {
-                System.Console.WriteLine(" grounded");
-            }
-            else
-            {
-                Position -= new Vector2(0, -gravity * (float)gameTime.ElapsedGameTime.TotalSeconds);
-                System.Console.WriteLine("not grounded!");
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Left)) Velocity = new Vector2(-1,0);
-            if (Keyboard.GetState().IsKeyDown(Keys.Right)) Velocity = new Vector2(1, 0);
-
-            Position +=  Velocity * pixelsPerSeconds *  (float)gameTime.ElapsedGameTime.TotalSeconds;
+            Input();
+            if (!isGrounded)
+                    Velocity -= new Vector2(0, -gravity * (float)gameTime.ElapsedGameTime.TotalSeconds);
+            Velocity *= movementSpeed;
+            base.Update(gameTime);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(GameTime gTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, Position, Color.White);
+            base.Draw(gTime);
+        }
+
+        public void Input()
+        {
+            Velocity = Vector2.Zero;
+            if (InputManager.Instance.KeyDown(Keys.A))
+            {
+                Mirror = true;
+                Velocity += new Vector2(-1, 0);
+            }
+            if (InputManager.Instance.KeyDown(Keys.D))
+            {
+                Mirror = false;
+                Velocity += new Vector2(1, 0);
+            }
+            if(Velocity == Vector2.Zero) { PlayAnimation("IDLE"); } else { PlayAnimation("SNEAKING"); }
         }
     }
 }

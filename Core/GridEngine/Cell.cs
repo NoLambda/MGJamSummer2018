@@ -24,7 +24,7 @@ namespace MGJamSummer2018.Core
             if (Collideable)
             {
 
-                if (player.Bounds.Intersects(BoundingBox))
+                if (player.CollisionBox.Intersects(BoundingBox))
                 {
                     player.isGrounded = true;
                 }

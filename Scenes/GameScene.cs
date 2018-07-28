@@ -24,7 +24,6 @@ namespace MGJamSummer2018.Scenes
         public override void LoadContent(ContentManager content)
         {
             world.LoadContent(content);
-            player.LoadContent(content);
         }
 
         public override void Update(GameTime time)
@@ -36,7 +35,7 @@ namespace MGJamSummer2018.Scenes
         public override void Draw(GameTime time, SpriteBatch batch)
         {
             world.Draw(batch);
-            player.Draw(batch);
+            player.Draw(time, batch);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace MGJamSummer2018.Core
         protected int currIndex;
         public SpriteEntity(string sheetPath, string _name, Entity _parent = null, uint _layer = 0) : base(_name, _parent, _layer)
         {
-            //spriteSheet = new SpriteSheet(sheetPath);
+            spriteSheet = new SpriteSheet(sheetPath);
             origin = new Vector2(spriteSheet.Width / 2, spriteSheet.Height / 2);
         }
 
