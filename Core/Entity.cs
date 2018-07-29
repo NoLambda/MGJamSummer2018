@@ -71,6 +71,6 @@ namespace MGJamSummer2018.Core
             return null;
         }
 
-        public override Entity Parent { get => this; }
+        public override Entity Parent { get => null; }
     }
 }
