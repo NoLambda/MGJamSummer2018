@@ -43,7 +43,7 @@ namespace MGJamSummer2018.Entities
 
         public string Name { get => name; }
         public uint DrawingLayer { get => layer; set => layer = value; }
-        public virtual Rectangle CollisionBox { get => new Rectangle((int)Position.X, (int)Position.Y, 0, 0); }
+        public virtual Rectangle BoundingBox { get => new Rectangle((int)Position.X, (int)Position.Y, 0, 0); }
 
         public virtual Entity Parent { get => parent; set => parent = value; }
         public EntityList Children { get => children; }

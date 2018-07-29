@@ -19,20 +19,11 @@ namespace MGJamSummer2018.Core
             BoundingBox = new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
         }
 
-        public void Update(Player player)
+        public bool CollidesWith(Rectangle coll)
         {
-            if (Collideable)
-            {
-
-                if (player.CollisionBox.Intersects(BoundingBox))
-                {
-                    player.isGrounded = true;
-                }
-            }
-            else
-            {
-                player.isGrounded = false;
-            }
+            if (Collideable && coll.Intersects(BoundingBox))
+                return true;
+            return false;
         }
     }
 }

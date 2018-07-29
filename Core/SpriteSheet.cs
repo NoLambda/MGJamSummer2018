@@ -12,6 +12,7 @@ namespace MGJamSummer2018.Core
         // Animation variables
         protected float frameTime, time;
         protected bool looping, isAnimated = false;
+        protected bool[] collisionMask;
         protected AnimMetaData currentAnimation;
 
         // Normal Sprite sheet variables
@@ -44,7 +45,9 @@ namespace MGJamSummer2018.Core
                 for (int i = 1; i < metaData.Count; i++)
                 {
                     line = metaData[i].Split(' ');
-                    animData.Add(line[0], new AnimMetaData(line[0], int.Parse(line[1]), Height * (i - 1) + spacingHeight * i));
+                    int boxY = int.Parse(line[3]) - ((i - 1) * frameHeight + i * spacingHeight);
+                    int frameStartY = FrameHeight * (i - 1) + spacingHeight * i;
+                    animData.Add(line[0], new AnimMetaData(line[0], int.Parse(line[1]), frameStartY, new Rectangle(int.Parse(line[2]), boxY, int.Parse(line[4]), int.Parse(line[5]))));
                 }
             }
             catch
@@ -52,6 +55,7 @@ namespace MGJamSummer2018.Core
                 throw new IOException("Error parsing metadata for sprite with path" + sheetPath +
                     "\n check if .txt is named the same as the sprite and if the file conventions are correct!");
             }
+
         }
 
         public void PlayAnimation(string name)
@@ -96,11 +100,14 @@ namespace MGJamSummer2018.Core
             GraphicsManager.Instance.SpriteBatch.Draw(sheet, pos, currSpriteBox, color, 0.0f, origin, 1.0f, spriteEffects, 0.0f);
         }
 
+       
+
         public Texture2D SprSheet { get => sheet; }
         public bool Mirrored { get => mirrored; set => mirrored = value; }
 
-        public int Width { get => frameWidth; }
-        public int Height { get => frameHeight; }
+        public int FrameWidth { get => frameWidth; }
+        public int FrameHeight { get => frameHeight; }
+        public Rectangle CurrentBoundingBox { get => currentAnimation.BoundingBox; }
 
         // Animation properties
         public void ToggleAnimation() => isAnimated = !isAnimated;
@@ -111,8 +118,10 @@ namespace MGJamSummer2018.Core
     {
         public int AmountOfFrames, startPosY;
         public string Name;
-        public AnimMetaData(string name, int frames, int startPixelY)
+        public Rectangle BoundingBox;
+        public AnimMetaData(string name, int frames, int startPixelY, Rectangle boundingBox)
         {
+            BoundingBox = boundingBox;
             Name = name;
             AmountOfFrames = frames;
             startPosY = startPixelY;

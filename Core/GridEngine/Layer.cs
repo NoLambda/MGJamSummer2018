@@ -61,13 +61,8 @@ namespace MGJamSummer2018.Core
             }
         }
 
-        public void Update(Player player)
-        {
-            for (int i = 0; i < Cells.Count; i++)
-            {
-                Cells[i].Update(player);
-            }
-        }
+        public void Update(Player player) { }
+        
 
         public void Draw(SpriteBatch spriteBatch)
         {

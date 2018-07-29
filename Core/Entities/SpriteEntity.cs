@@ -13,7 +13,7 @@ namespace MGJamSummer2018.Entities
         public SpriteEntity(string sheetPath, string _name, Entity _parent = null, uint _layer = 0) : base(_name, _parent, _layer)
         {
             spriteSheet = AssetManager.Instance.GetSpriteSheet(sheetPath);
-            origin = new Vector2(spriteSheet.Width / 2, spriteSheet.Height / 2);
+            origin = new Vector2(Width / 2, Height / 2);
         }
 
         public override void Update(GameTime gTime)
@@ -32,42 +32,42 @@ namespace MGJamSummer2018.Entities
             switch (anchor)
             {
                 case Anchor.UpLeft: origin = new Vector2(0, 0); break;
-                case Anchor.Up: origin = new Vector2(spriteSheet.Width / 2, 0); break;
-                case Anchor.UpRight: origin = new Vector2(spriteSheet.Width, 0); break;
-                case Anchor.MiddleLeft: origin = new Vector2(0, spriteSheet.Height / 2); break;
-                case Anchor.Middle: origin = new Vector2(spriteSheet.Width / 2, spriteSheet.Height / 2); break;
-                case Anchor.MiddleRight: origin = new Vector2(spriteSheet.Width, spriteSheet.Height / 2); break;
-                case Anchor.DownLeft: origin = new Vector2(0, spriteSheet.Height); break;
-                case Anchor.Down: origin = new Vector2(spriteSheet.Width / 2, spriteSheet.Height); break;
-                case Anchor.DownRight: origin = new Vector2(spriteSheet.Width, spriteSheet.Height); break;
+                case Anchor.Up: origin = new Vector2(Width / 2, 0); break;
+                case Anchor.UpRight: origin = new Vector2(Width, 0); break;
+                case Anchor.MiddleLeft: origin = new Vector2(0, Height / 2); break;
+                case Anchor.Middle: origin = new Vector2(Width / 2, Height / 2); break;
+                case Anchor.MiddleRight: origin = new Vector2(Width, Height / 2); break;
+                case Anchor.DownLeft: origin = new Vector2(0, Height); break;
+                case Anchor.Down: origin = new Vector2(Width / 2, Height); break;
+                case Anchor.DownRight: origin = new Vector2(Width, Height); break;
             }
         }
 
         public Vector2 Origin { get => origin; }
-        public Vector2 Centre { get => new Vector2(spriteSheet.Width / 2, spriteSheet.Height / 2); }
+        public Vector2 Centre { get => new Vector2(spriteSheet.FrameWidth / 2, spriteSheet.FrameHeight / 2); }
         public Color SpriteColor { get => color; set => color = value; }
 
-        public int Width { get => spriteSheet.Width; }
-        public int Height { get => spriteSheet.Height; }
+        public int Width { get => spriteSheet.CurrentBoundingBox.Width; }
+        public int Height { get => spriteSheet.CurrentBoundingBox.Height; }
         public bool Mirror { get => spriteSheet.Mirrored; set => spriteSheet.Mirrored = value; }
 
         public void PlayAnimation(string name) { spriteSheet.PlayAnimation(name); }
         public void ToggleAnimation() => spriteSheet.ToggleAnimation();
         public bool LoopAnimation { get => spriteSheet.LoopAnimation; set => spriteSheet.LoopAnimation = value; }
 
-        public override Rectangle CollisionBox
+        public override Rectangle BoundingBox
         {
             get
             {
-                int left = (int)(Position.X - origin.X);
-                int top = (int)(Position.Y - origin.Y);
-                return new Rectangle(left, top, Width, Height);
+                int left = (int)(Position.X - origin.X) + spriteSheet.CurrentBoundingBox.X;
+                int top = (int)(Position.Y - origin.Y) + spriteSheet.CurrentBoundingBox.Y;
+                return new Rectangle(left, top, spriteSheet.CurrentBoundingBox.Width, spriteSheet.CurrentBoundingBox.Height);
             }
         }
 
-        public bool CollidesWith(SpriteEntity other)
+        public bool CollidesWith(Rectangle other)
         {
-            return CollisionBox.Intersects(other.CollisionBox);
+            return BoundingBox.Intersects(other);
         }
     }
 

@@ -17,7 +17,7 @@ namespace MGJamSummer2018.Scenes
         {
             world = new Grid();
             world = new XmlManager<Grid>().Load("Maps/World_01.xml", world.GetType());
-            player = new Player();
+            player = new Player(world);
             rootEntity.AddChild(player);
         }
 
