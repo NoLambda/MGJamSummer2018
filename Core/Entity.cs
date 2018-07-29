@@ -15,19 +15,17 @@ namespace MGJamSummer2018.Core
         protected uint layer;
         protected bool visible = true;
 
-        public Entity(string _name, Entity _parent = null, uint _layer = 0)
+        public Entity(string _name, Entity _parent, uint _layer = 0)
         {
             children = new EntityList(this);
             name = _name;
-            if (_parent == null)
-                EntityRoot.Instance.children.Add(this);
-            else
-                parent = _parent;
+            parent = _parent;
         }
 
         public virtual void Reset() { children.Reset();}
         public virtual void Update(GameTime gTime)
         {
+            if(!visible) { return; }
             children.Update(gTime);
             localPos += vel * (float)gTime.ElapsedGameTime.TotalSeconds;
         }
@@ -49,15 +47,14 @@ namespace MGJamSummer2018.Core
         public string Name { get => name; }
         public uint DrawingLayer { get => layer; set => layer = value; }
         public virtual Rectangle CollisionBox { get => new Rectangle((int)Position.X, (int)Position.Y, 0, 0); }
+
+        public void AddChild(Entity e) => children.Add(e);
+        public void ClearChildren() => children.Clear();
     }
 
-    public class EntityRoot
+    public class EntityRoot : Entity
     {
-        public static EntityRoot Instance { get { return instance ?? (instance = new EntityRoot()); } }
-        private static EntityRoot instance;
-        public EntityList children = new EntityList();
-
-        public EntityRoot() { }
+        public EntityRoot() : base("ROOT", null, 0){ }
 
         public Entity RootSearch(string _name)
         {

@@ -17,25 +17,26 @@ namespace MGJamSummer2018.Scenes
         {
             world = new Grid();
             world = new XmlManager<Grid>().Load("Maps/World_01.xml", world.GetType());
-
             player = new Player();
+            rootEntity.AddChild(player);
         }
 
         public override void LoadContent(ContentManager content)
         {
             world.LoadContent(content);
+            base.LoadContent(content);
         }
 
-        public override void Update(GameTime time)
+        public override void Update(GameTime gTime)
         {
             world.Update(player);
-            player.Update(time);
+            base.Update(gTime);
         }
 
-        public override void Draw(GameTime time, SpriteBatch batch)
+        public override void Draw(GameTime gTime)
         {
-            world.Draw(batch);
-            player.Draw(time, batch);
+            world.Draw(GraphicsManager.Instance.SpriteBatch);
+            base.Draw(gTime);
         }
     }
 }

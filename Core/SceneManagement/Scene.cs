@@ -8,10 +8,12 @@ namespace MGJamSummer2018.Core
     public class Scene
     {
         public string Name { get; }
+        protected EntityRoot rootEntity;
 
         public Scene(string name)
         {
             Name = name;
+            rootEntity = new EntityRoot();
         }
 
         public virtual void Initialize() { }
@@ -20,9 +22,15 @@ namespace MGJamSummer2018.Core
 
         public virtual void UnloadContent() { }
 
-        public virtual void Update(GameTime time) { }
+        public virtual void Update(GameTime gTime)
+        {
+            rootEntity.Update(gTime);
+        }
 
-        public virtual void Draw(GameTime time, SpriteBatch batch) { }
+        public virtual void Draw(GameTime gTime)
+        {
+            rootEntity.Draw(gTime);
+        }
 
         public void OnSceneChanged(object source, SceneEventArgs args)
         {

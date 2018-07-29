@@ -23,6 +23,7 @@ namespace MGJamSummer2018.Core
 
         public override void Draw(GameTime gTime)
         {
+            base.Draw(gTime);
             spriteSheet.Draw(Position, origin, color);
         }
         public void SetAnchor(Anchor anchor)

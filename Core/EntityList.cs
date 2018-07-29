@@ -9,7 +9,7 @@ namespace MGJamSummer2018.Core
     {
         protected List<Entity> entities;
         protected Entity owner;
-        public EntityList(Entity _owner = null)
+        public EntityList(Entity _owner)
         { entities = new List<Entity>(); owner = _owner; }
 
         public List<Entity> Entities { get => entities; }
