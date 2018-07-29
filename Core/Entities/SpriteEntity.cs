@@ -1,7 +1,8 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using MGJamSummer2018.Core;
 using Microsoft.Xna.Framework.Graphics;
-namespace MGJamSummer2018.Core
+namespace MGJamSummer2018.Entities
 {
     public class SpriteEntity : Entity
     {

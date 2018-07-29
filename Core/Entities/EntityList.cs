@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 
-namespace MGJamSummer2018.Core
+namespace MGJamSummer2018.Entities
 {
-    public class EntityList : IBasicObject
+     public class EntityList : IBasicObject
     {
         protected List<Entity> entities;
         protected Entity owner;

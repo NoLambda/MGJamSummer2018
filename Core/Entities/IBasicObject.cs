@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace MGJamSummer2018.Core
+namespace MGJamSummer2018.Entities
 {
-    interface IBasicObject
+    public interface IBasicObject
     {
         void Draw(GameTime gTime);
         void Update(GameTime gTime);

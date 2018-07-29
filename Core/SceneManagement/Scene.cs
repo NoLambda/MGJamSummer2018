@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MGJamSummer2018.Entities;
 using System;
 
 namespace MGJamSummer2018.Core

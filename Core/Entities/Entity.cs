@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MGJamSummer2018.Core
+namespace MGJamSummer2018.Entities
 {
     public abstract class Entity : IBasicObject
     {
@@ -37,9 +37,6 @@ namespace MGJamSummer2018.Core
 
         public bool IsVisible { get => visible; set => visible = value; }
 
-        public virtual Entity Parent { get => parent; set => parent = value; }
-        public EntityList Children { get => children; }
-        
         public virtual Vector2 Position { get => parent == null ? LocalPosition : parent.Position + LocalPosition; }
         public virtual Vector2 LocalPosition { get => localPos; set => localPos = value; }
         public virtual Vector2 Velocity { get => vel; set => vel = value; }
@@ -48,6 +45,8 @@ namespace MGJamSummer2018.Core
         public uint DrawingLayer { get => layer; set => layer = value; }
         public virtual Rectangle CollisionBox { get => new Rectangle((int)Position.X, (int)Position.Y, 0, 0); }
 
+        public virtual Entity Parent { get => parent; set => parent = value; }
+        public EntityList Children { get => children; }
         public void AddChild(Entity e) => children.Add(e);
         public void ClearChildren() => children.Clear();
     }
