@@ -21,9 +21,8 @@ namespace MGJamSummer2018.Core
         protected int frameCounter = 0;
         protected bool mirrored;
         Dictionary<string, AnimMetaData> animData;
-        public SpriteSheet(string sheetPath, bool animated = false, float _frameTime = 0.1f)
+        public SpriteSheet(string sheetPath, float _frameTime = 0.1f)
         {
-            isAnimated = animated;
             frameTime = _frameTime;
             sheet = AssetManager.Instance.GetSprite(sheetPath);
 
@@ -51,7 +50,7 @@ namespace MGJamSummer2018.Core
             catch
             {
                 throw new IOException("Error parsing metadata for sprite with path" + sheetPath +
-                    "/n check if .txt is named the same as the sprite and if the file conventions are correct!");
+                    "\n check if .txt is named the same as the sprite and if the file conventions are correct!");
             }
         }
 

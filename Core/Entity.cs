@@ -37,7 +37,7 @@ namespace MGJamSummer2018.Core
 
         public bool IsVisible { get => visible; set => visible = value; }
 
-       public Entity Parent { get => parent; set => parent = value; }
+        public virtual Entity Parent { get => parent; set => parent = value; }
         public EntityList Children { get => children; }
         
         public virtual Vector2 Position { get => parent == null ? LocalPosition : parent.Position + LocalPosition; }
@@ -70,5 +70,7 @@ namespace MGJamSummer2018.Core
             }
             return null;
         }
+
+        public override Entity Parent { get => this; }
     }
 }

@@ -8,16 +8,26 @@ namespace MGJamSummer2018.Core
 {
     public class AssetManager
     {
+        private Dictionary<string, SpriteSheet> spriteSheets;
         public static AssetManager Instance { get { return instance ?? (instance = new AssetManager()); } }
         private static AssetManager instance;
         private ContentManager content;
 
         public AssetManager()
-        { }
+        {
+            spriteSheets = new Dictionary<string, SpriteSheet>();
+        }
 
         // General
         public void Init(ContentManager _content) { content = _content; }
         public ContentManager GetContentManager { get => content; }
+
+        public SpriteSheet GetSpriteSheet(string sheetName)
+        {
+            if (!spriteSheets.ContainsKey(sheetName))
+                spriteSheets.Add(sheetName, new SpriteSheet(sheetName));
+            return spriteSheets[sheetName];
+        }
 
         // Graphics
         public Texture2D GetSprite(string path) { return content.Load<Texture2D>(path); }
