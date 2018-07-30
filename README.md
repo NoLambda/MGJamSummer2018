@@ -1,2 +1,2 @@
-# MGJamSummer2018
-Monogame jam project 
+MGJamSummer2018
+# GRAVEYARDED
