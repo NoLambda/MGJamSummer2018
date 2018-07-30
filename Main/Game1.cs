@@ -12,7 +12,7 @@ namespace MGJamSummer2018
         {
             GraphicsManager.Instance.Init(this);
             GraphicsManager.Instance.SetWindowTitle("NoLambda Team | MGJam Summer 2018");
-            GraphicsManager.Instance.SetResolution(new Vector2(640*1.5f, 360*1.5f), false);
+            GraphicsManager.Instance.SetResolution(new Vector2(320*2, 180*2), false);
             GraphicsManager.Instance.SetVirtualResolution(new Vector2(320, 180));
             GraphicsManager.Instance.SetMouseVisible(true);
             Content.RootDirectory = "Content";
@@ -23,9 +23,11 @@ namespace MGJamSummer2018
         {
             AssetManager.Instance.Init(Content);
 
+            /// <summary> Add the game scenes. </summary>
             ScenesManager.Instance.Populate(new List<Scene>() {new MainMenu("Menu"),
                                                                new GameScene("Game") });
 
+            /// <summary> Choose the scene you want to play at start. </summary>
             ScenesManager.Instance.SetStartingScene(ScenesManager.Instance.Container.Find(x => x.Name == "Game"));
         }
 

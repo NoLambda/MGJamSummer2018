@@ -1,28 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 namespace MGJamSummer2018.Core
 {
+    /// <summary>
+    /// Manage all the scenes of the game.
+    /// </summary>
     public class ScenesManager
     {
+        /// <summary> Contain all the scenes of the game. </summary>
         public List<Scene> Container { get; }
+
+        /// <summary> Current state of the game <see cref="SetStartingScene(Scene)"/> <see cref="SwitchScene(Scene)"/> </summary>
         public Scene CurrentScene { get; private set; }
 
+        /// <summary> When the scene change fire this event. </summary>
         public event EventHandler<SceneEventArgs> SceneChanged;
 
+        /// <summary> Make a singleton for the current class. </summary>
         public static ScenesManager Instance { get { return instance ?? (instance = new ScenesManager()); } }
         private static ScenesManager instance;
 
+        /// <summary>
+        /// Initialize the container at the start.
+        /// </summary>
         public ScenesManager()
         {
             Container = new List<Scene>();
         }
 
+        /// <summary>
+        /// Update the current scene.
+        /// </summary>
         public void Update(GameTime gameTime) => CurrentScene.Update(gameTime);
 
+        /// <summary>
+        /// Draw the current scene.
+        /// If the game allow virtual resolution, render it with the virtual resolution
+        /// else render it normally.
+        /// </summary>
         public void Draw(SpriteBatch spriteBatch, GameTime time)
         {
             if (GraphicsManager.Instance.AllowVirtualResolution)
@@ -48,11 +66,19 @@ namespace MGJamSummer2018.Core
             }
         }
 
+        /// <summary>
+        /// Add all the scenes from the list to the container.
+        /// </summary>
+        /// <param name="scenes">Scenes to add.</param>
         public void Populate(List<Scene> scenes)
         {
             Container.AddRange(scenes);
         }
 
+        /// <summary>
+        /// Set the default scene that you want to play when you
+        /// start the game.
+        /// </summary>
         public void SetStartingScene(Scene scene)
         {
             CurrentScene = scene;
@@ -60,6 +86,10 @@ namespace MGJamSummer2018.Core
             OnSceneChanged();
         }
 
+        /// <summary>
+        /// Change from the current scene to the target scene.
+        /// </summary>
+        /// <param name="scene">The scene you want to play</param>
         public void SwitchScene(Scene scene)
         {
             CurrentScene.UnloadContent();
@@ -69,6 +99,9 @@ namespace MGJamSummer2018.Core
             OnSceneChanged();
         }
 
+        /// <summary>
+        /// Event, when scene changed fire OnSceneChanged()
+        /// </summary>
         protected virtual void OnSceneChanged() => SceneChanged?.Invoke(this, new SceneEventArgs() { Scene = CurrentScene });
     }
 }

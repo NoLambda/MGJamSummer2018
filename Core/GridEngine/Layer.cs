@@ -10,12 +10,22 @@ namespace MGJamSummer2018.Core
 {
     public class Layer
     {
+        /// <summary> Name of the layer (Defined in xml). </summary>
         [XmlElement("Name")] public string Name { get; set; }
+
+        /// <summary> List of row for the current layer (Defined in xml). </summary>
         [XmlElement("Row")] public List<string> Row { get; set; }
+
+        /// <summary> List of textures to use in this layer (Defined in xml). </summary>
         [XmlElement("Import")] public List<string> Import { get; set; }
+
+        /// <summary> List of the cell that should have collision (Defined in xml). </summary>
         [XmlElement("Collideable")] public List<string> Collideable { get; set; }
 
+        /// <summary> Final list of textures. </summary>
         [XmlIgnore] public List<Texture2D> Textures { get; set; }
+
+        /// <summary> Final list of cells. </summary>
         [XmlIgnore] public List<Cell> Cells { get; set; }
 
         public Layer()
@@ -26,6 +36,12 @@ namespace MGJamSummer2018.Core
             Row = new List<string>();
         }
 
+        /// <summary>
+        /// Load all the cells textures from (import),
+        /// For all the rows of the current layer, create the cell,
+        /// if the cell exist in the list "collideable", then add
+        /// collision on it.
+        /// </summary>
         public void LoadContent(ContentManager content)
         {
             Vector2 offset = new Vector2(0, 0);
@@ -60,10 +76,11 @@ namespace MGJamSummer2018.Core
                 }
             }
         }
-
-        public void Update(Player player) { }
         
-
+        /// <summary>
+        /// For all the cells added into the final list of cells, 
+        /// call it's draw method
+        /// </summary>
         public void Draw(SpriteBatch spriteBatch)
         {
             for (int i = 0; i < Cells.Count; i++)
